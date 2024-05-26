@@ -27,12 +27,14 @@ class _LoginScreenState extends State<LoginScreen> {
     if (user != null) {
       Provider.of<TaskProvider>(context, listen: false).setUserId(user.id);
 
-      Navigator.push(
+      Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => TaskScreen()),
       );
     } else {
-      print('Failed to login');
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Username or password are incorrect')),
+      );
     }
   }
 

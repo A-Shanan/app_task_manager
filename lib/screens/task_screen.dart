@@ -3,7 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'package:app_task_manager/providers/auth_provider.dart';
 import 'package:app_task_manager/providers/task_provider.dart';
+import 'package:app_task_manager/screens/login_screen.dart';
 import 'package:app_task_manager/screens/task_edit_screen.dart';
 
 class TaskScreen extends StatelessWidget {
@@ -14,10 +16,23 @@ class TaskScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final taskProvider = Provider.of<TaskProvider>(context);
+    final authProvider = Provider.of<AuthProvider>(context);
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('Tasks'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: () {
+              authProvider.logout();
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const LoginScreen()),
+              );
+            },
+          ),
+        ],
       ),
       body: Column(
         children: [
