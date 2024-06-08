@@ -65,7 +65,7 @@ class ApiService {
       body: jsonEncode({'todo': title, 'completed': false, 'userId': userId}),
     );
 
-    if (response.statusCode == 200) {
+    if (response.statusCode == 200 || response.statusCode == 201) {
       return Task.fromJson(jsonDecode(response.body));
     } else {
       print('Failed to add task with status code: ${response.statusCode}');
